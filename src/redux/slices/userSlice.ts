@@ -1,11 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const USERS_DATABASE = [
+    { id: "1", socketID: "", userName: "superuser", isOnline: false, rooms: ["room1", "room2"] },
+];
+
 interface UserState {
+    id: string,
     userName: string;
+    isOnline: boolean;
+    socketID: string;
+    rooms: string[];
 }
 
 const initialState: UserState = {
+    id: "",
     userName: "",
+    isOnline: false,
+    socketID: "",
+    rooms: []
 };
 
 const userSlice = createSlice({
@@ -13,7 +25,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUser(state, action) {
-            state.userName = action.payload;
+            return action.payload;
         },
     },
 });

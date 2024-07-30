@@ -5,19 +5,15 @@ import MainContainer from "@/components/mainContainer";
 import socket from '@/lib/socket';
 import UserPanel from './components/userPanel/UserPanel';
 import ChatPanel from './components/chatPanel/ChatPanel';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/slices/userSlice';
 import isLoggedIn from './lib/isLoggedIn';
 import { useRouter } from 'next/navigation';
-import { RootState } from '@/redux/store';
+import getUser from './lib/getUser';
 
 
 function UserPage({ params }: { params: { userName: string } }) {
-  //provide user to redux store
   const dispatch = useDispatch();
-  dispatch(setUser(params.userName))
-
-  const user = useSelector((state: RootState) => state.user);
 
   //loading: true - do not show current page
   //loading: false - show current page
@@ -26,7 +22,7 @@ function UserPage({ params }: { params: { userName: string } }) {
 
   React.useEffect(() => {
     const checkLoginStatus = async () => {
-      const isUserLoggedIn = await isLoggedIn(user.userName);
+      const isUserLoggedIn = await isLoggedIn(params.userName);
 
       if (!isUserLoggedIn) {
         router.push(`/`);
@@ -37,12 +33,29 @@ function UserPage({ params }: { params: { userName: string } }) {
         setLoading(false);
 
         //connect socket
-        socket.connect;
+        socket.connect();
+
+        try {
+          // get User object from server database 
+          const user = await getUser(params.userName);
+
+          // Dispatch the user data to Redux store
+          dispatch(setUser(user));
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
+
       }
     };
 
     checkLoginStatus();
-  }, [user, router]);
+    return () => {
+      socket.disconnect();
+    };
+  }, [params.userName, router, dispatch]);
+
+
+
 
   return (
     <MainContainer>

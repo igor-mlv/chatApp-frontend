@@ -12,6 +12,11 @@ function Rooms() {
                     <p className='text-[20px] bg-customGradient'>Friend 1</p>
                 </div>
             ))}
+
+            <div className='flex justify-around items-center bg-card border-b-4 border-background'>
+                <CircleUserRound size={50} />
+                <p className='text-[20px] bg-customGradient'>Friend 1</p>
+            </div>
         </div>
     )
 }

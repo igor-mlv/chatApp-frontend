@@ -7,9 +7,9 @@ import UserPanel from './components/userPanel/UserPanel';
 import ChatPanel from './components/chatPanel/ChatPanel';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '@/redux/slices/userSlice';
-import isLoggedIn from './lib/isLoggedIn';
+import isLoggedIn from './services/isLoggedIn';
 import { useRouter } from 'next/navigation';
-import getUser from './lib/getUser';
+import getUser from './services/getUser';
 import { RootState } from '@/redux/store';
 
 

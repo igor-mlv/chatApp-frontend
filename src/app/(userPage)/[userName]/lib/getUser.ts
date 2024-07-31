@@ -1,8 +1,7 @@
-
+"use server"
 const getUser = async (username: string) => {
-
   try {
-    const response = await fetch(`http://localhost:3001/api/users/${username}`, {
+    const response = await fetch(`${process.env.SERVER_URL}/api/users/${username}`, {
       method: 'GET',
     });
 
@@ -11,10 +10,10 @@ const getUser = async (username: string) => {
       return user;
     } else {
       const errorData = await response.json();
-      console.log(errorData);
+      throw new Error(errorData.error || 'Error getting user');
     }
   } catch (error) {
-    console.log('Network error. Please try again later.');
+    throw new Error('Network error. Please try again later.');
   }
 }
 

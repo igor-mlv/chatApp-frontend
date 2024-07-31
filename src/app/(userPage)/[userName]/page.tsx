@@ -5,14 +5,16 @@ import MainContainer from "@/components/mainContainer";
 import socket from '@/lib/socket';
 import UserPanel from './components/userPanel/UserPanel';
 import ChatPanel from './components/chatPanel/ChatPanel';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '@/redux/slices/userSlice';
 import isLoggedIn from './lib/isLoggedIn';
 import { useRouter } from 'next/navigation';
 import getUser from './lib/getUser';
+import { RootState } from '@/redux/store';
 
 
 function UserPage({ params }: { params: { userName: string } }) {
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   //loading: true - do not show current page
@@ -28,6 +30,15 @@ function UserPage({ params }: { params: { userName: string } }) {
         router.push(`/`);
       } else {
         //user logged in
+        try {
+          // get User object from server database 
+          const userObject = await getUser(params.userName);
+
+          // Dispatch the user data to Redux store
+          dispatch(setUser(userObject));
+        } catch (error) {
+          return console.error("Failed to fetch user data:", error);
+        }
 
         //show user page
         setLoading(false);
@@ -35,15 +46,7 @@ function UserPage({ params }: { params: { userName: string } }) {
         //connect socket
         socket.connect();
 
-        try {
-          // get User object from server database 
-          const user = await getUser(params.userName);
-
-          // Dispatch the user data to Redux store
-          dispatch(setUser(user));
-        } catch (error) {
-          console.error("Failed to fetch user data:", error);
-        }
+        socket.emit("setUserIDtoSocketID", user.id);
 
       }
     };
@@ -52,7 +55,7 @@ function UserPage({ params }: { params: { userName: string } }) {
     return () => {
       socket.disconnect();
     };
-  }, [params.userName, router, dispatch]);
+  }, [params.userName, router, dispatch, user.id]);
 
 
 

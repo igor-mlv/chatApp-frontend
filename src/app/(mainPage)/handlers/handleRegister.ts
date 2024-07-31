@@ -1,3 +1,4 @@
+import { registerService } from "../services/registerService";
 interface Props {
     value: string;
     setError: (error: string) => void;
@@ -10,19 +11,17 @@ const handleRegister = async ({ value, setError }: Props) => {
     }
 
     try {
-        const response = await fetch(`http://localhost:3001/api/register/${value}`, {
-            method: 'GET',
-        });
+        const user = await registerService(value);
 
-        if (response.ok) {
-            const user = await response.json();
-            return user;
-        } else {
-            const errorData = await response.json();
-            setError(errorData.error || 'Error registering user');
+        if (user.error) {
+            // Display the error from the server
+            setError(user.error);
+            return;
         }
+
+        return user;
     } catch (error) {
-        setError('Network error. Please try again later.');
+        setError('Unexpected error occurred');
     }
 };
 

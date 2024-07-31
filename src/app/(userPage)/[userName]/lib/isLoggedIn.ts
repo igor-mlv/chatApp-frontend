@@ -1,6 +1,7 @@
+"use server"
 const isLoggedIn = async (userName: string) => {
     try {
-        const response = await fetch(`http://localhost:3001/api/login/${userName}`, {
+        const response = await fetch(`${process.env.SERVER_URL}/api/login/${userName}`, {
             method: 'GET',
         });
 
@@ -10,7 +11,6 @@ const isLoggedIn = async (userName: string) => {
             return false;
         }
     } catch (error) {
-        console.log('Network error. Please try again later.')
         return false;
     }
 }

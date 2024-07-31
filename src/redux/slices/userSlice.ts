@@ -1,9 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const USERS_DATABASE = [
-    { id: "1", socketID: "", userName: "superuser", isOnline: false, rooms: ["room1", "room2"] },
-];
-
 interface UserState {
     id: string,
     userName: string;

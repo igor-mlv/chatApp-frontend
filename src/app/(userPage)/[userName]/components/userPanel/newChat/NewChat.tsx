@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import React from 'react';
 import UsersList from './dialog/UsersList';
 
+
 function NewChat() {
     const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
@@ -32,8 +33,6 @@ function NewChat() {
                     <DialogDescription />
 
                     <UsersList />
-
-
 
                     <div className='w-full flex flex-row justify-between'>
                         <Button

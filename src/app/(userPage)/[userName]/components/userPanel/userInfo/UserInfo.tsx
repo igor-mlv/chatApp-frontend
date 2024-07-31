@@ -8,8 +8,8 @@ function UserInfo() {
 
     return (
         <div className='w-full h-full flex justify-center items-center space-x-5'>
-            <SquareUserRound className='w-[30px] h-[30px]' />
-            <p>{user.userName}</p>
+            <SquareUserRound size={30} />
+            <p className='text-[24px]'>{user.userName}</p>
         </div>
     )
 }

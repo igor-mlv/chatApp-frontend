@@ -10,6 +10,7 @@ import { NewChatUsersType } from '@/redux/slices/newChatUsers';
 
 
 function UsersList() {
+    const currentUser = useSelector((state: RootState) => state.user);
     const users = useSelector((state: RootState) => state.newChatUsers);
     const dispatch = useDispatch();
 
@@ -33,16 +34,18 @@ function UsersList() {
     return (
         <ScrollArea className="w-full h-[85%] flex flex-col justify-center items-center mt-[40px]">
             {users.map((user: NewChatUsersType) => (
-                <div key={user.id} className='flex justify-between items-center bg-card border-b-4 border-background px-[20px] py-[10px] rounded-[20px]'>
-                    <div className='flex justify-center items-center'>
-                        <CircleUserRound size={50} />
-                        <p className='text-[20px] ml-[20px]'>{user.userName}</p>
-                    </div>
+                currentUser.id !== user.id && (
+                    <div key={user.id} className='flex justify-between items-center bg-card border-b-4 border-background px-[20px] py-[10px] rounded-[20px]'>
+                        <div className='flex justify-center items-center'>
+                            <CircleUserRound size={50} />
+                            <p className='text-[20px] ml-[20px]'>{user.userName}</p>
+                        </div>
 
-                    <Checkbox
-                        className='w-[30px] h-[30px]'
-                        onCheckedChange={() => handleSelection(user)} />
-                </div>
+                        <Checkbox
+                            className='w-[30px] h-[30px]'
+                            onCheckedChange={() => handleSelection(user)} />
+                    </div>
+                )
             ))}
         </ScrollArea>
 

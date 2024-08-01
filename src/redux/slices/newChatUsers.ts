@@ -23,12 +23,9 @@ const newChatUsersSlice = createSlice({
                     : user
             );
         },
-        getSelectedUsers(state, action) {
-            return action.payload.filter((user: NewChatUsersType) => user.isSelected);
-        }
     },
 });
 
-export const { setUsers, getSelectedUsers, toggleSelection } = newChatUsersSlice.actions;
+export const { setUsers, toggleSelection } = newChatUsersSlice.actions;
 
 export default newChatUsersSlice.reducer;

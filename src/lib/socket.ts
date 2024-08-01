@@ -5,5 +5,8 @@ const socket = io(URL, {
     autoConnect: false
 });
 
+socket.on("newChatCreated", (chatID: string) => {
+    socket.emit("joinChat", chatID);
+});
 
 export default socket;

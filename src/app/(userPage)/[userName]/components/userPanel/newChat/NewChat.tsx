@@ -8,10 +8,20 @@ import {
 } from "@/components/ui/dialog"
 import React from 'react';
 import UsersList from './dialog/UsersList';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import createChat from './services/createChat';
 
 function NewChat() {
-    const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+    const users = useSelector((state: RootState) => state.newChatUsers);
+    const handleOnApply = () => {
+        const selectedUsers = users.filter(user => user.isSelected);
+        createChat(selectedUsers);
+        setIsDialogOpen(false);
+    }
 
+
+    const [isDialogOpen, setIsDialogOpen] = React.useState(false);
     const handleOnCancel = () => {
         setIsDialogOpen(false);
     }
@@ -41,7 +51,7 @@ function NewChat() {
                         </Button>
 
                         <Button className="w-[110px] h-[38px] text-[18px]"
-                        >
+                            onClick={handleOnApply}>
                             APPLY
                         </Button>
                     </div>

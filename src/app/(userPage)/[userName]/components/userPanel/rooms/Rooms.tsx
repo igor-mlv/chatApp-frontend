@@ -38,7 +38,7 @@ function Rooms() {
             {user.rooms.map((room) => (
                 <div
                     key={room}
-                    className='flex justify-between items-center bg-card border-b-4 border-background px-[20px] py-[10px] rounded-[20px'
+                    className='flex justify-between items-center bg-card border-b-4 border-background px-[20px] py-[10px] rounded-[20px]'
                     onClick={() => handleRoomClick(room)}>
                     <CircleUserRound size={50} />
                     <p className='text-[20px]'>{room.substring(0, 8)}</p>

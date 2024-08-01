@@ -3,29 +3,42 @@ import { RootState } from '@/redux/store';
 import React from 'react'
 import { useSelector } from 'react-redux';
 
-interface Message {
+interface MessageType {
+    chatID: string;
     text: string;
     sender: string;
 }
 
+interface StorageType {
+    chatID: string;
+    messages: { sender: string, text: string }[];
+}
+
 function ChatMesseges() {
+    const displayedRoom = useSelector((state: RootState) => state.displayedRoom);
     const user = useSelector((state: RootState) => state.user);
-    const [messages, setMessages] = React.useState<Message[]>([]);
+    const [allMessages, setAllMessages] = React.useState<MessageType[]>([]);
+    const [displayedRoomMessages, setDisplayedRoomMessages] = React.useState<MessageType[]>([]);
+
+    React.useEffect(() => {
+        setDisplayedRoomMessages(allMessages.filter((msg) => msg.chatID === displayedRoom));
+    }, [displayedRoom, allMessages]);
 
     React.useEffect(() => {
         // Listen for incoming chat messages
-        socket.on('chatMessage', (msg: Message) => {
-            setMessages((prevMessages) => [...prevMessages, msg]);
+        socket.on('chatMessage', (msg: MessageType) => {
+            setAllMessages((prevMessages) => [...prevMessages, msg]);
         });
+        console.log(allMessages);
 
         return () => {
             socket.off('chatMessage');
         };
-    }, []);
+    }, [allMessages]);
 
     return (
         <div className='w-full h-full flex flex-col justify-end bg-card/30 px-[20px] py-[20px] rounded-[20px]'>
-            {messages.map((msg, index) => (
+            {displayedRoomMessages.map((msg, index) => (
                 msg.sender === user.userName ? (
                     <div key={index} className='w-full flex flex-row justify-end space-x-[10px]'>
                         <div className='flex flex-col items-end'>

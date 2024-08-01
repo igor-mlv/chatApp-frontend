@@ -33,6 +33,13 @@ function Rooms() {
         usedispatch(setDisplayedRoom(room));
     };
 
+    React.useEffect(() => {
+        if (user.rooms.length === 1) {
+            handleRoomClick(user.rooms[0]);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]);
+
     return (
         <ScrollArea className='w-full h-full flex flex-col'>
             {user.rooms.map((room) => (

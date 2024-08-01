@@ -30,6 +30,7 @@ function ChatInput() {
         <div className='w-full h-full flex flex-row justify-between items-center'>
             <Input
                 placeholder="Type your message ..."
+                value={typedValue}
                 onChange={handleOnChange}
                 className="w-full max-w-[600px] text-[18px]"
             />

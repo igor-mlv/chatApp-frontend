@@ -6,10 +6,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from '@/components/ui/input'
 import React from 'react';
 import UsersList from './dialog/UsersList';
-
 
 function NewChat() {
     const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -19,7 +17,7 @@ function NewChat() {
     }
 
     return (
-        <div className='w-full flex justify-center items-center'>
+        <div className='w-full h-full flex justify-center items-center'>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen} >
                 <DialogTrigger asChild>
                     <Button className='w-[150px] text-[18px]'>

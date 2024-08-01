@@ -36,7 +36,7 @@ function UsersList() {
                 <div key={user.id} className='flex justify-between items-center bg-card border-b-4 border-background px-[20px] py-[10px] rounded-[20px]'>
                     <div className='flex justify-center items-center'>
                         <CircleUserRound size={50} />
-                        <p className='text-[20px] bg-customGradient ml-[20px]'>{user.userName}</p>
+                        <p className='text-[20px] ml-[20px]'>{user.userName}</p>
                     </div>
 
                     <Checkbox

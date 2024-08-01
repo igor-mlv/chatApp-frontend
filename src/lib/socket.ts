@@ -9,4 +9,6 @@ socket.on("newChatCreated", (chatID: string) => {
     socket.emit("joinChat", chatID);
 });
 
+
+
 export default socket;

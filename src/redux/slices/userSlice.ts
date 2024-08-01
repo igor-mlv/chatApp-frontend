@@ -22,9 +22,12 @@ const userSlice = createSlice({
         setUser(state, action) {
             return action.payload;
         },
+        updateUserRooms(state, action) {
+            state.rooms = action.payload;
+        }
     },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, updateUserRooms } = userSlice.actions;
 
 export default userSlice.reducer;

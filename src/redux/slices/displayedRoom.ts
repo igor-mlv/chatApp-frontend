@@ -1,12 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface displayedRoomType {
-    id: string,
-}
-
-const initialState: displayedRoomType = {
-    id: "",
-};
+const initialState: string = '';
 
 const displayedRoomSlice = createSlice({
     name: 'displayedRoom',

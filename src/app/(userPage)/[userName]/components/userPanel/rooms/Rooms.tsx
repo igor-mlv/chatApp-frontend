@@ -33,6 +33,7 @@ function Rooms() {
         usedispatch(setDisplayedRoom(room));
     };
 
+    // If the user has only one room, automatically select it
     React.useEffect(() => {
         if (user.rooms.length === 1) {
             handleRoomClick(user.rooms[0]);

@@ -9,28 +9,33 @@ interface MessageType {
     sender: string;
 }
 
-interface StorageType {
-    chatID: string;
-    messages: { sender: string, text: string }[];
-}
-
 function ChatMesseges() {
+    // Get the current displayed chat room from the Redux store
     const displayedRoom = useSelector((state: RootState) => state.displayedRoom);
+
+    // Get the current user information from the Redux store
     const user = useSelector((state: RootState) => state.user);
+
+    // State to store all messages
     const [allMessages, setAllMessages] = React.useState<MessageType[]>([]);
+
+
+    // State to store messages for the current chat room
     const [displayedRoomMessages, setDisplayedRoomMessages] = React.useState<MessageType[]>([]);
 
+    // Update displayedRoomMessages when displayedRoom or allMessages changes
     React.useEffect(() => {
         setDisplayedRoomMessages(allMessages.filter((msg) => msg.chatID === displayedRoom));
     }, [displayedRoom, allMessages]);
 
+    // Listen for new chat messages
     React.useEffect(() => {
         // Listen for incoming chat messages
         socket.on('chatMessage', (msg: MessageType) => {
             setAllMessages((prevMessages) => [...prevMessages, msg]);
         });
-        console.log(allMessages);
 
+        // Cleanup listener on unmount
         return () => {
             socket.off('chatMessage');
         };

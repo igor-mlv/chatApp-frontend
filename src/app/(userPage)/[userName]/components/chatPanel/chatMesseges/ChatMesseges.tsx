@@ -41,16 +41,16 @@ function ChatMesseges() {
             {displayedRoomMessages.map((msg, index) => (
                 msg.sender === user.userName ? (
                     <div key={index} className='w-full flex flex-row justify-end space-x-[10px]'>
-                        <div className='flex flex-col items-end'>
+                        <div className='flex flex-col items-end bg-card px-[20px] py-[10px] rounded-[20px] my-[5px]'>
                             <p className='text-[16px]'>{msg.sender}</p>
-                            <p className='text-[20px]'>{msg.text}</p>
+                            <p className='text-[20px] max-w-[400px] break-words '>{msg.text}</p>
                         </div>
                     </div>
                 ) : (
                     <div key={index} className='w-full flex flex-row justify-start space-x-[10px]'>
-                        <div className='flex flex-col items-start'>
+                        <div className='flex flex-col items-start bg-card px-[20px] py-[10px] rounded-[20px] my-[5px]'>
                             <p className='text-[16px]'>{msg.sender}</p>
-                            <p className='text-[20px]'>{msg.text}</p>
+                            <p className='text-[20px] max-w-[400px] break-words '>{msg.text}</p>
                         </div>
                     </div>
                 )

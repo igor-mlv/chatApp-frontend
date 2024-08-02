@@ -13,9 +13,12 @@ import { RootState } from '@/redux/store';
 import createChat from './services/createChat';
 
 function NewChat() {
+    const currentUserName = useSelector((state: RootState) => state.user.userName);
     const users = useSelector((state: RootState) => state.newChatUsers);
     const handleOnApply = () => {
         const selectedUsers = users.filter(user => user.isSelected);
+        // Add current user to the selected users
+        selectedUsers.push({ id: "", userName: currentUserName });
         createChat(selectedUsers);
         setIsDialogOpen(false);
     }

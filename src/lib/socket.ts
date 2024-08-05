@@ -2,7 +2,7 @@
 import { io } from 'socket.io-client';
 
 // Define the URL for the socket connection
-const URL = "http://localhost:3001";
+const URL = process.env.SOCKET_URL || "http://localhost:3004";
 
 // Create a socket instance with the specified URL and options
 const socket = io(URL, {
